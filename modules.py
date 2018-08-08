@@ -1,3 +1,5 @@
+import json, requests
+
 # Error code
 def error():
     print("\n---- Jorina ----")
@@ -42,4 +44,18 @@ def convert(unit, value):
 
 # Weather
 def weather(city):
-    return 0
+    api_key = "6698db835f222c30ca10009236d47c05"
+    unit = "&units=imperial"
+
+    # Check to see if user provided a city, or is it default city
+    if city == "Salt Lake City":
+        city_for_url = "Salt+Lake+City"
+    else:
+        city_for_url = city # Need to make a city name to city_url converter
+    
+    base_url = "https://api.openweathermap.org/data/2.5/weather?q=" + city_for_url + "&APPID="
+    api_call = base_url + api_key+unit
+    request_data = requests.get(api_call)
+    data = request_data.json()
+    print("City: " + data['name'])
+    print("Current Temperature: " + str(data['main']['temp']) + "F")
