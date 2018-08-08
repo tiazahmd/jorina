@@ -54,7 +54,7 @@ def weather(city):
         city_for_url = city # Need to make a city name to city_url converter
     
     base_url = "https://api.openweathermap.org/data/2.5/weather?q=" + city_for_url + "&APPID="
-    api_call = base_url + api_key+unit
+    api_call = base_url + api_key + unit
     request_data = requests.get(api_call)
     data = request_data.json()
     print("City: " + data['name'])
