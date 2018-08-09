@@ -46,12 +46,19 @@ def convert(unit, value):
 def weather(city):
     api_key = "6698db835f222c30ca10009236d47c05"
     unit = "&units=imperial"
+    city_for_url = ""
 
     # Check to see if user provided a city, or is it default city
     if city == "Salt Lake City":
         city_for_url = "Salt+Lake+City"
     else:
-        city_for_url = city # Need to make a city name to city_url converter
+        cityname_to_list = city.split(' ')
+        if len(cityname_to_list) > 1:
+            for items in cityname_to_list:
+                city_for_url += items + "+"
+            city_for_url = city_for_url.strip('+')
+        else:
+            city_for_url = cityname_to_list[0]
     
     base_url = "https://api.openweathermap.org/data/2.5/weather?q=" + city_for_url + "&APPID="
     api_call = base_url + api_key + unit
